@@ -1,0 +1,2 @@
+ Nodes should register to http://192.168.1.16:4444/grid/register/
+Clients should connect to http://192.168.1.16:4444/wd/hub

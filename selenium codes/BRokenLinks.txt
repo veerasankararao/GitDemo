@@ -1,0 +1,79 @@
+package selenium;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
+
+public class BrokenLinks {
+
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver1.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.rahulshettyacademy.com/AutomationPractice/");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		
+		//BrokenLinks
+		//Step1:to get all Url tiedup to the links using 
+		//java methods will call URl's And get you the Status code
+		//If Status is >400 then URl is not Working -->Link which tied to URL is broken
+		//$('a[href*="Appium"]')-css selector     $('tagname[attribute*="smallcasetextname"]') in console
+		//$('li[class*="gf-li"] a')--css Selector    $('parenttagname[parentattribute*="patentattributevalue"] childtagname')
+
+/*
+ // for single URL you want
+  	//String appiumUrl=driver.findElement(By.cssSelector("a[href*='appium']")).getAttribute("href");
+		String appiumUrl=driver.findElement(By.cssSelector("a[href*='brokenlink']")).getAttribute("href");
+	//parentconection object=(parentconnectionparamter) new URL(urlobject).openConnection();
+	HttpURLConnection con=(HttpURLConnection) new URL(appiumUrl).openConnection();
+	con.setRequestMethod("HEAD");
+	con.connect();
+	System.out.println(con.getResponseCode());
+*/
+		//Find the broken url list
+	List<WebElement> links=driver.findElements(By.cssSelector("li[class*=\"gf-li\"] a"));
+	SoftAssert a=new SoftAssert();
+	for (WebElement link : links) 
+	{
+		String Url=link.getAttribute("href");
+		HttpURLConnection con=(HttpURLConnection) new URL(Url).openConnection();
+		con.setRequestMethod("HEAD");
+		con.connect();
+		int respondcode=con.getResponseCode();
+		System.out.println(respondcode);
+		
+		//this Assert use for find the fail and continue the execution
+		a.assertTrue(respondcode<400, "The link with "+ link.getText()+" is the broken code is "+respondcode);
+	/*	
+		//this Assert stop the execution after any fail identify
+		if (respondcode>400) {
+			System.out.println("The link with "+ link.getText()+"is the broken code is "+respondcode);
+			Assert.assertTrue(false);
+		}
+			*/
+			
+	}	
+	a.assertAll();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+		
+
+	}
+
+}

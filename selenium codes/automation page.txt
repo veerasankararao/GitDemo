@@ -1,0 +1,70 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Hello {
+	public static void main(String[] args) throws Throwable {
+		System.out.println("hello Veera");
+		
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("http://automationpractice.com/index.php");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+	
+		driver.findElement(By.className("login")).click();							//locators
+		driver.findElement(By.id("email_create")).sendKeys("zxcvbn@gmail.com");
+		driver.findElement(By.id("SubmitCreate")).click();
+		Thread.sleep(3000);
+		
+		driver.findElement(By.id("id_gender1")).click();							//radio button 
+		driver.findElement(By.id("customer_firstname")).sendKeys("tester");
+		driver.findElement(By.id("customer_lastname")).sendKeys("testing");
+		driver.findElement(By.id("passwd")).sendKeys("zxcvbn");
+		Thread.sleep(2000);
+		
+		WebElement day=driver.findElement(By.id("days"));							//dropdown
+		Select d=new Select(day);
+		d.selectByIndex(14);
+		WebElement month=driver.findElement(By.id("months"));
+		Select m=new Select(month);
+		m.selectByIndex(2);
+		WebElement year=driver.findElement(By.id("years"));
+		Select y=new Select(year);
+		y.selectByIndex(14);
+		Thread.sleep(2000);
+		
+		driver.findElement(By.id("newsletter")).click();							//check box
+		driver.findElement(By.id("optin")).click();
+		
+
+		driver.findElement(By.id("company")).sendKeys("wondersys");
+		driver.findElement(By.id("address1")).sendKeys("munnekullal");
+		driver.findElement(By.id("address2")).sendKeys("munekullal");
+		driver.findElement(By.id("city")).sendKeys("bangaloe");
+		WebElement state=driver.findElement(By.id("id_state"));
+		
+		Select st=new Select(state);
+		st.selectByIndex(12);
+		driver.findElement(By.id("postcode")).sendKeys("96704");
+		
+		
+		driver.findElement(By.id("other")).sendKeys("need clean data");
+		driver.findElement(By.id("phone_mobile")).sendKeys("1234567890");
+		driver.findElement(By.id("alias")).sendKeys("bangalore");
+		driver.findElement(By.id("submitAccount")).click();
+		
+		Thread.sleep(3000);
+		
+		driver.findElement(By.className("logout")).click();
+		
+		
+		
+		
+	}
+
+}

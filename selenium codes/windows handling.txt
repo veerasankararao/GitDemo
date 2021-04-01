@@ -1,0 +1,43 @@
+package selenium;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WindowHandling {
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.rahulshettyacademy.com/loginpagePractise/#");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		
+		driver.findElement(By.cssSelector("a[class='blinkingText']")).click();
+		Set<String> windows=driver.getWindowHandles(); //[parentid,childid]
+		 Iterator<String> it=windows.iterator();
+		 String parentId=it.next();
+		 String childId=it.next();
+		 driver.switchTo().window(childId);
+		System.out.println( driver.findElement(By.cssSelector(".im-para.red")).getText());
+		driver.findElement(By.cssSelector(".im-para.red")).getText();
+		Thread.sleep(3000);
+		System.out.println( driver.findElement(By.xpath("//*[@id=\"interview-material-container\"]/div/div[2]/p[2]")).getText().split("at"));
+		/*
+		 //get word from the paragraph
+		 
+		1.pathlocation
+		2.get text of the paragraph
+		3.get split of what word before you what
+		4.trim for removing the spaces
+		5.split again what you want that word is come
+		*/
+		String email=driver.findElement(By.cssSelector(".im-para.red")).getText().split("at")[1].trim().split(" ")[0];
+		driver.switchTo().window(parentId);
+		driver.findElement(By.id("username")).sendKeys(email);
+	}
+
+}

@@ -1,0 +1,29 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class DragandDrop {
+	public static void main(String[] args) throws InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.google.com/");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		driver.get("http://demo.guru99.com/test/drag_drop.html");
+		Actions a = new Actions(driver);
+		WebElement source = driver.findElement(By.xpath("//a[text()=' BANK ']"));
+		WebElement des = driver.findElement(By.xpath("(//li[@class='placeholder'])[1]"));
+		Thread.sleep(2000);
+		a.dragAndDrop(source, des).perform();
+		WebElement source1 = driver.findElement(By.xpath("//*[@id=\'credit1\']/a"));
+		WebElement des1 = driver.findElement(By.xpath("//*[@id=\"loan\"]/li"));
+		Thread.sleep(2000);
+		a.dragAndDrop(source1, des1).perform();
+	}
+
+}

@@ -1,0 +1,89 @@
+package selenium;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+public class SelectCalender
+{
+	public static void main(String[] args) throws Throwable
+	{
+
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver1.exe");
+		WebDriver driver = new ChromeDriver();
+	
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+
+		
+		  	//select the date in that month
+		  driver.get("https://www.spicejet.com/");
+		  driver.findElement(By.id("ctl00_mainContent_rbtnl_Trip_1")).click();
+		  driver.findElement(By.id("ctl00_mainContent_ddl_originStation1_CTXT")).click(); 
+		  driver.findElement(By.xpath("//a[@value='BLR']")).click();
+		  Thread.sleep(3000);
+		  driver.findElement(By.xpath("(//a[@value=\"MAA\"])[2]")).click();
+		  
+		  Thread.sleep(3000); 
+		  driver.findElement(By.cssSelector("#ui-datepicker-div > div.ui-datepicker-group.ui-datepicker-group-first > table > tbody > tr:nth-child(2) > td.ui-datepicker-days-cell-over.ui-datepicker-current-day.ui-datepicker-today")).click();
+		  
+		  System.out.println(driver.findElement(By.name("ctl00$mainContent$view_date2")).isEnabled());
+		  
+		  System.out.println(driver.findElement(By.id("Div1")).getAttribute("style"));
+		  
+		  driver.findElement(By.id("ctl00_mainContent_rbtnl_Trip_1")).click();
+		  
+		  System.out.println(driver.findElement(By.id("Div1")).getAttribute("style"));
+		  
+		  if (driver.findElement(By.id("Div1")).getAttribute("style").contains("1"))
+		  
+		  {
+		  
+		  System.out.println("its enabled"); Assert.assertTrue(true);
+		  
+		  }
+		  
+		  else
+		  
+		  {
+		  
+		 Assert.assertTrue(false);
+		
+		 
+		  
+		  }
+		
+		// select a particular date & month
+		driver.navigate().to("https://www.path2usa.com/travel-companions/");
+		Thread.sleep(3000);
+		driver.findElement(By.id("travel_date")).click();
+		
+		while (!driver.findElement(By.cssSelector("[class='datepicker-days'] [class='datepicker-switch']")).getText().contains("June"))
+		{
+			Thread.sleep(3000);
+		driver.findElement(By.cssSelector("[class='datepicker-days'] th[class='next']")).click();
+		
+		}
+	//Grab the common attribute and put into list and iterate
+		List<WebElement> date = driver.findElements(By.className("day"));
+		int length=	driver.findElements(By.className("day")).size();
+		for (int i = 0; i <length ; i++)
+		{
+			String text=driver.findElements(By.className("day")).get(i).getText();
+			if (text.equalsIgnoreCase("23")) 
+			{
+				driver.findElements(By.className("day")).get(i).click();
+				break;
+			}
+		}
+
+		
+		
+	}
+
+}

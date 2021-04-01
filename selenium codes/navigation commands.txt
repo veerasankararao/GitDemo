@@ -1,0 +1,27 @@
+package selenium;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Navigate {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		Thread.sleep(3000);
+		driver.get("https://www.google.com/");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		//To enter the url
+		driver.navigate().to("https://www.facebook.com/");
+		Thread.sleep(3000);
+		//To navigate to previous page
+		driver.navigate().back();
+		Thread.sleep(3000);
+		//To navigate to next page
+		driver.navigate().forward();
+		Thread.sleep(3000);
+		//Refresh current web page
+		driver.navigate().refresh();
+	}
+
+}

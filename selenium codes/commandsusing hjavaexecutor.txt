@@ -1,0 +1,33 @@
+package selenium;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class CommandGivenbyjavascriptexecuter {
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.gecko.driver", "F:\\selenium\\TEsting1\\Drivers\\geckodriver.exe");
+		WebDriver driver= new FirefoxDriver();
+		driver.get("http://demo.guru99.com/test/drag_drop.html");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		
+		driver.get("https://accounts.google.com/signin/v2/identifier?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin");
+				Thread.sleep(5000);
+				WebElement w = driver.findElement(By.xpath(".//*[@id='identifierId']"));
+				JavascriptExecutor js=(JavascriptExecutor) driver;
+				js.executeScript("arguments[0].setAttribute('value','venkat12345')",w);
+				WebElement w1 = driver.findElement(By.xpath(".//*[text()='Next']"));
+				js.executeScript("arguments[0].click()",w1);
+				Thread.sleep(6000);
+				WebElement w2 = driver.findElement(By.xpath("//*[@name='password']"));
+				js.executeScript("arguments[0].setAttribute('value','venkat12345')",w2);
+				Thread.sleep(6000);
+				WebElement w3 = driver.findElement(By.xpath(".//*[@id='passwordNext']/div[2]"));
+				js.executeScript("arguments[0].click()",w3);
+		
+	}
+
+}

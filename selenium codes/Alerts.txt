@@ -1,0 +1,59 @@
+package selenium;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Alerts {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("http://demo.automationtesting.in/Alerts.html");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		
+		
+		
+		WebElement textbox = driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[1]/ul/li[3]/a"));
+		textbox.click();
+		
+		WebElement tbutton = driver.findElement(By.xpath("//*[@id=\"Textbox\"]/button"));
+		tbutton.click();
+		Thread.sleep(3000);
+		
+		Alert al = driver.switchTo().alert();
+		al.sendKeys("veera this is alert test");
+		Thread.sleep(3000);
+		al.accept();
+		driver.switchTo().defaultContent();
+		Thread.sleep(5000);
+		
+		
+		WebElement okAndCancel = driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[1]/ul/li[2]/a"));
+		okAndCancel.click();
+		
+		WebElement cbutton = driver.findElement(By.xpath("//*[@id=\"CancelTab\"]/button"));
+		cbutton.click();
+		Thread.sleep(3000);
+		//al.accept();
+		al.dismiss();
+		driver.switchTo().defaultContent();
+		
+		
+		WebElement ok = driver.findElement(By.xpath("/html/body/div[1]/div/div/div/div[1]/ul/li[1]/a"));
+		ok.click();
+		
+		WebElement kbutton = driver.findElement(By.xpath("//*[@id=\"OKTab\"]/button"));
+		kbutton.click();
+		Thread.sleep(3000);
+		al.accept();
+	
+		
+		
+		
+		
+	}
+
+}

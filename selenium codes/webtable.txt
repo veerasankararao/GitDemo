@@ -1,0 +1,48 @@
+package selenium;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+public class WebTable {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver1.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.rahulshettyacademy.com/AutomationPractice/");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		
+		JavascriptExecutor j = (JavascriptExecutor) driver;
+		// select the scroll down to window command in (ctrl+shift+i)console= window.scrollBy(coordinates)
+		j.executeScript("window.scrollBy(0,600)");
+		Thread.sleep(3000);
+		
+		//select the scroll down(in columns) to table command in (ctrl+shift+i)console=document.querySelector(".tableFixHead").scrollTop=1000 
+		//select the scroll right(in rows) to table command in (ctrl+shift+i)console= document.querySelector(".tableFixHead").scrollTleft=1000 
+		j.executeScript("document.querySelector(\'.tableFixHead\').scrollTop=1000 ");
+		
+		//.tableFixHead td:nth-child(4) -CSS Selector  .className attribute:nth-child(column number)
+		List<WebElement> column=driver.findElements(By.cssSelector(".tableFixHead td:nth-child(4)"));
+		int sum=0;
+		for (int i = 0; i <column.size(); i++) {
+			//print 4 column all data
+			System.out.println(Integer.parseInt(column.get(i).getText()));
+			//sum of 4th column data
+			sum=sum+Integer.parseInt(column.get(i).getText());
+			
+		}	
+		System.out.println(sum);
+		driver.findElement(By.cssSelector("div[class='totalAmount']")).getText();
+		int total=Integer.parseInt(driver.findElement(By.cssSelector("div[class='totalAmount']")).getText().split(":")[1].trim());
+		System.out.println(total);
+
+		Assert.assertEquals(sum, total);
+
+	
+	}
+}

@@ -1,0 +1,111 @@
+package selenium;
+
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
+
+public class OnlineDropdown {
+	
+	public static void main(String[] args) throws Throwable {
+	
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.spicejet.com/");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+	
+		//static dropdown(select the currency type)
+		WebElement staticdropdoen=driver.findElement(By.id("ctl00_mainContent_DropDownListCurrency"));
+			
+			Select sd=new Select(staticdropdoen);
+			sd.selectByIndex(5);
+			System.out.println(sd.getFirstSelectedOption().getText());
+			//System.out.println(staticdropdoen.getText());              //for all data	
+			//System.out.println(staticdropdoen.getLocation());			//for location	
+		    //System.out.println(sd.equals("USD"));					   //for checking equal names
+			Thread.sleep(3000);
+			sd.selectByVisibleText("INR");
+			System.out.println(sd.getFirstSelectedOption().getText());
+			
+			Thread.sleep(3000);
+			sd.selectByValue("BDT");
+			System.out.println(sd.getFirstSelectedOption().getText());
+			
+			Thread.sleep(5000);	
+		//Dropdown Looping(select the passenger type)
+		driver.findElement(By.id("divpaxinfo")).click();
+		WebElement dploopadult=driver.findElement(By.id("ctl00_mainContent_ddl_Adult"));
+		Select dladult=new Select(dploopadult);
+		dladult.selectByIndex(2);
+		WebElement dploopchild=driver.findElement(By.id("ctl00_mainContent_ddl_Child"));
+		Select dlchild=new Select(dploopchild);
+		dlchild.selectByIndex(1);
+		WebElement dploopinfant=driver.findElement(By.id("ctl00_mainContent_ddl_Infant"));
+		Select dlinfant=new Select(dploopinfant);
+		dlinfant.selectByIndex(1);	
+			
+		System.out.println(driver.findElement(By.id("divpaxinfo")).getText());	
+	
+	
+		
+		//Dynamic dropdown
+		
+		driver.findElement(By.id("ctl00_mainContent_ddl_originStation1_CTXT")).click();
+		driver.findElement(By.xpath("//a[@value='BLR']")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//a[@value=\"MAA\"])[2]")).click();
+		
+	
+		
+		//Auto Suggestive dropdown
+		
+		driver.get("https://rahulshettyacademy.com/dropdownsPractise/");
+
+		driver.findElement(By.id("autosuggest")).sendKeys("ind");
+
+		Thread.sleep(3000);
+
+		List<WebElement> options =driver.findElements(By.cssSelector("li[class='ui-menu-item'] a"));
+
+		for(WebElement option :options)
+
+		{
+
+		if(option.getText().equalsIgnoreCase("India"))
+
+		{
+
+		option.click();
+
+		break;
+
+		}
+
+		}
+
+		
+	// select check boxes
+		driver.findElement(By.id("ctl00_mainContent_chk_friendsandfamily")).click();
+		//System.out.println(driver.findElement(By.id("ctl00_mainContent_chk_friendsandfamily")).isSelected());
+		Assert.assertTrue(driver.findElement(By.id("ctl00_mainContent_chk_friendsandfamily")).isSelected());
+		System.out.println(driver.findElements(By.xpath("//input[@type=\"checkbox\"]")).size());
+		driver.findElement(By.id("divpaxinfo")).click();
+		WebElement dploopadult1=driver.findElement(By.id("ctl00_mainContent_ddl_Adult"));
+		Select dladult1=new Select(dploopadult1);
+		dladult1.selectByIndex(2);
+		System.out.println(driver.findElement(By.id("divpaxinfo")).getText());
+		Assert.assertEquals(driver.findElement(By.id("divpaxinfo")).getText(), "3 Adult");
+	
+		
+		
+		
+		
+		}
+			
+	}
+
+

@@ -1,0 +1,32 @@
+package selenium;
+
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SelectMultipleCheckbox {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+	
+		driver.get("http://demoqa.com");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//*[@id=\'app\']/div/div/div[2]/div/div[2]/div/div[3]")).click();
+		driver.findElement(By.xpath("(//*[@id=\'item-0\'])[2]")).click();
+		
+		/*List<WebElement> w = driver.findElements(By.xpath("//input[@type='checkbox']"));
+		
+		for(WebElement x:w){
+		x.click();*/
+		WebElement box = driver.findElement(By.xpath("//input[@type='checkbox']"));
+		List<WebElement> lc = box.findElements(By.tagName("input"));
+		for (int i = 0; i <= lc.size(); i++) {
+        lc.get(i).click();
+}
+		}
+	}

@@ -1,0 +1,38 @@
+package selenium;
+
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+public class SSLAndInsecureCertificatesAndMaximizeDeletecookies {
+
+	public static void main(String[] args) throws Throwable  {
+		
+		//SSL certificates
+		
+		//desired capabilities:general Chrome profile
+		DesiredCapabilities ch=new DesiredCapabilities().chrome();
+		ch.acceptInsecureCerts(); //(or)
+		ch.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+		
+		ch.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		//Belongs to your local browser
+		ChromeOptions c=new ChromeOptions();
+		c.merge(ch);
+		
+
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver1.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();	//maximise page
+		driver.manage().deleteAllCookies();		//delete all cookies
+	//	driver.manage().deleteCookieNamed("adff");		//delete single cookies
+		
+		driver.get("https://www.google.com");
+		
+		
+	}
+
+}

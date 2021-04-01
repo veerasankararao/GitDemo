@@ -1,0 +1,53 @@
+package selenium;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class JavascriptExecuter {
+	public static void main(String[] args) throws Throwable {
+		System.setProperty("webdriver.chrome.driver", "F:\\selenium\\TEsting1\\Drivers\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("https://www.seleniumhq.org/download/");
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+		
+		
+		//1.Write a Script to scroll down and scroll up the window using pixel
+		JavascriptExecutor j = (JavascriptExecutor) driver;
+		//To scroll down
+		j.executeScript("window.scrollBy(0,700)");
+		Thread.sleep(3000);
+		//To scroll up
+		j.executeScript("window.scrollBy(0,-400)");
+		
+		//2.Write a Script to scroll down and scroll up the window upto 50px for 10 times
+		JavascriptExecutor j1 = (JavascriptExecutor) driver;
+		//To scroll down
+		for (int i = 0; i < 10; i++) {
+		j1.executeScript("window.scrollBy(0,50)");
+		Thread.sleep(500);
+		}
+
+
+		//3.Highlighting the webelement using javascript
+		driver.get("https://adactin.com/HotelApp/index.php");
+		JavascriptExecutor j = (JavascriptExecutor) driver;
+		// username and password highlighted by green color and red box
+		WebElement username = driver.findElement(By.id("username"));
+		j.executeScript("arguments[0].setAttribute('style','background: green; border: solid 2px red');", username);
+		username.sendKeys("venkat");
+		WebElement password = driver.findElement(By.id("password"));
+		j.executeScript("arguments[0].setAttribute('style','background: green; border: solid 2px red');", password);
+		username.sendKeys("venkat@1234");
+		Thread.sleep(2000);
+		// Login button highlighted by yellow color and green box
+		WebElement login = driver.findElement(By.id("login"));
+		j.executeScript("arguments[0].setAttribute('style','background: yellow; border: solid 2px green');", login);
+		login.click();
+		
+		
+		
+		
+}
+}

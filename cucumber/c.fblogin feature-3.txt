@@ -1,0 +1,8 @@
+Feature: Login into Faceabbok Application
+
+Scenario: positive test validation Fblogin
+Given Initilize the browser with chrome
+And Navigate to "http://www.facebook.com" site
+When User enters "9177157021" and "veera(ru)"
+Then User click the login button
+Then Verify the user is Successfully logged in
